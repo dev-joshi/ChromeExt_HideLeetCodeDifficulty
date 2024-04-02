@@ -1,24 +1,39 @@
 
 chrome.storage.sync
-    .get("hideDifficulty")
+    .get("hidden")
     .then(result => {
-        console.log("hideDifficulty : " + result.hideDifficulty);
-        if (result.hideDifficulty) {
-            document
-                .getElementById('hideDifficulty')
-                .checked = true;
-            }
+        console.log("hideDifficulty : " + result.hidden);
+        document
+            .getElementById('hideDifficultyCheckbox')
+            .checked = result.hidden;
         });
 
 function setHideDifficulty(event) {
-    let hideDifficulty = event.target.checked;
+    let hidden = event.target.checked;
     chrome.storage.sync
-    .set({hideDifficulty: hideDifficulty})
-    .then(() => {
-        console.log('Hide difficulty set to : ' + hideDifficulty);
-    });
+        .set({hidden: hidden})
+        .then(async () => {
+            console.log('Hide difficulty set to : ' + hidden);
+
+            const tabs = await chrome.tabs.query({
+                url: [
+                    "https://leetcode.com/problems/*",
+                    "https://leetcode.com/problemset/*",
+                    "https://leetcode.com/studyplan/*"
+                ]
+            });
+
+            for (const tab of tabs) {
+                console.log('Hiding difficulty on tab : ' + tab.id);
+                chrome.scripting
+                    .executeScript({
+                        target: {tabId: tab.id},
+                        files: ["scripts/hide.js"],
+                    });
+            }
+        });
 }
 
 document
-    .getElementById('hideDifficulty')
+    .getElementById('hideDifficultyCheckbox')
     .addEventListener('click', setHideDifficulty);

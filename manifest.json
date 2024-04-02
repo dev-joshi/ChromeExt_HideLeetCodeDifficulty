@@ -5,7 +5,10 @@
     "manifest_version": 3,
     "content_scripts": [
       {
-        "js": ["scripts/hide.js"],
+        "js": [
+          "scripts/hideUtils.js",
+          "scripts/hide.js"
+        ],
         "matches": [
           "https://leetcode.com/problems/*",
           "https://leetcode.com/problemset/*",
@@ -13,8 +16,14 @@
         ]
       }
     ],
+    "host_permissions": [
+      "https://leetcode.com/problems/*",
+      "https://leetcode.com/problemset/*",
+      "https://leetcode.com/studyplan/*"
+    ],
     "permissions": [
-      "storage"
+      "storage",
+      "scripting"
     ],
     "action": {
       "default_popup": "helperPopup.html",
