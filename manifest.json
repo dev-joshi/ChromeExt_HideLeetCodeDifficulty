@@ -1,0 +1,16 @@
+{
+    "name": "LeetCodeHelper",
+    "description": "Chrome Extension to hide question difficulty level from leetcode.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "content_scripts": [
+      {
+        "js": ["scripts/hide.js"],
+        "matches": [
+          "https://leetcode.com/problems/*",
+          "https://leetcode.com/problemset/*",
+          "https://leetcode.com/studyplan/*"
+        ]
+      }
+    ]
+  }
