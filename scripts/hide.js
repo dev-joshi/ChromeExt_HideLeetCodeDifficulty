@@ -46,4 +46,10 @@ function hideDifficulty() {
     }
 }
 
-setTimeout(hideDifficulty, 2000);
+chrome.storage.sync
+    .get("hideDifficulty").then(result => {
+        console.log("hideDifficulty :" + result.hideDifficulty);
+        if (result.hideDifficulty) {
+            setTimeout(hideDifficulty, 2000);
+        }
+    });

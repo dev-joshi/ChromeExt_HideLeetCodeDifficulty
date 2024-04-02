@@ -12,5 +12,12 @@
           "https://leetcode.com/studyplan/*"
         ]
       }
-    ]
+    ],
+    "permissions": [
+      "storage"
+    ],
+    "action": {
+      "default_popup": "helperPopup.html",
+      "default_icon": "images/hide.png"
+    }
   }
